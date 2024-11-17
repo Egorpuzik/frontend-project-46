@@ -11,3 +11,5 @@
 ```bash
 npm install -g gendiff
 ```
+![Build Status](https://img.shields.io/github/workflow/status/<username>/<repository>/Node.js%20Package)
+![Code Climate](https://img.shields.io/codeclimate/coverage/<username>/<repository>)
