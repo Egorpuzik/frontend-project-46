@@ -15,3 +15,4 @@ npm install -g gendiff
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/<badge_id>/test_coverage)](https://codeclimate.com/github/<username>/<repo>/test_coverage)
 
+![Test Coverage](https://api.codeclimate.com/v1/badges/<badge_id>/test_coverage)
