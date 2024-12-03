@@ -16,3 +16,7 @@ npm install -g gendiff
 [![Test Coverage](https://api.codeclimate.com/v1/badges/<badge_id>/test_coverage)](https://codeclimate.com/github/<username>/<repo>/test_coverage)
 
 ![Test Coverage](https://api.codeclimate.com/v1/badges/<badge_id>/test_coverage)
+
+## Пример использования
+
+[![asciicast](https://asciinema.org/a/1234567890.svg)](https://asciinema.org/a/1234567890)
