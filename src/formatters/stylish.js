@@ -1,21 +1,21 @@
 const formatStylish = (diff) => {
-    const lines = diff.map((item) => {
-      switch (item.type) {
-        case 'added':
-          return `  + ${item.key}: ${item.value}`;
-        case 'removed':
-          return `  - ${item.key}: ${item.value}`;
-        case 'updated':
-          return `  - ${item.key}: ${item.oldValue}\n  + ${item.key}: ${item.newValue}`;
-        case 'unchanged':
-          return `    ${item.key}: ${item.value}`;
-        default:
-          throw new Error(`Unknown type: ${item.type}`);
-      }
-    });
-  
-    return `{\n${lines.join('\n')}\n}`;
+  const typeActions = {
+    added: (item) => `  + ${item.key}: ${item.value}`,
+    removed: (item) => `  - ${item.key}: ${item.value}`,
+    updated: (item) => `  - ${item.key}: ${item.oldValue}\n  + ${item.key}: ${item.newValue}`,
+    unchanged: (item) => `    ${item.key}: ${item.value}`,
   };
-  
-  export default formatStylish;
+
+  const lines = diff.map((item) => {
+    if (!typeActions[item.type]) {
+      throw new Error(`Unknown diff type: ${item.type}`);
+    }
+    return typeActions[item.type](item);
+  });
+
+  return `{\n${lines.join('\n')}\n}`;
+};
+
+export default formatStylish;
+
   
