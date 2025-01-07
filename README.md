@@ -20,3 +20,7 @@ npm install -g gendiff
 ## Пример использования
 
 [![asciicast](https://asciinema.org/a/1234567890.svg)](https://asciinema.org/a/1234567890)
+
+## Demo
+
+[![asciicast](https://asciinema.org/a/7lTYbRS0QJI2To6f8dGv88uEa)]
