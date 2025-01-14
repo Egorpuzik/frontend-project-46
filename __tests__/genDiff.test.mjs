@@ -1,15 +1,18 @@
 import path from 'path';
 import genDiff from '../src/genDiff.js';
 import fs from 'fs';  
+import plain from '../src/formatters/plain.js';
 
 const getFixturePath = (filename) => path.join(process.cwd(), filename);
 
 describe('genDiff', () => {
   test('should correctly compare file1.json and file2.json', () => {
+    console.log(getFixturePath('file1.json')); 
+    console.log(getFixturePath('file2.json'));
+    
     const file1Path = getFixturePath('file1.json');
     const file2Path = getFixturePath('file2.json');
 
-    // Вывод содержимого файлов в консоль для отладки
     console.log('Content of file1.json:', fs.readFileSync(file1Path, 'utf-8'));
     console.log('Content of file2.json:', fs.readFileSync(file2Path, 'utf-8'));
 
@@ -71,14 +74,15 @@ describe('genDiff', () => {
     
     
 
-    const diff = genDiff(file1Path, file2Path);
-    console.log(diff);
-    expect(diff).toBe(expectedResult);
-  });
+const diff = genDiff(file1Path, file2Path, 'plain');
+const formattedDiff = plain(diff); 
+console.log(formattedDiff);
+expect(formattedDiff).toBe(expectedResult);
+});
 
-  test('should return "The files are identical." for identical JSON files', () => {
-    const filePath = getFixturePath('file1.json');
-    const diff = genDiff(filePath, filePath);
-    expect(diff).toBe('The files are identical.');
-  });
+test('should return "The files are identical." for identical JSON files', () => {
+const filePath = getFixturePath('file1.json');
+const diff = genDiff(filePath, filePath);
+expect(diff).toBe('The files are identical.');
+});
 });
