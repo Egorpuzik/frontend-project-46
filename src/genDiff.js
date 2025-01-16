@@ -60,7 +60,18 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
       return { key, type: 'unchanged', value: file1[key] };
     }
     if (_.isObject(file1[key]) && _.isObject(file2[key])) {
-      return { key, type: 'nested', children: genDiff(file1[key], file2[key], 'stylish') };
+      return {
+        key,
+        type: 'nested',
+        children: genDiff(
+          file1[key],
+          file2[key],
+          format,
+        ),
+      };
+    }
+    if (typeof filePath !== 'string') {
+      throw new TypeError(`Expected a string for filePath, received ${typeof filePath}`);
     }
     return { key, type: 'updated', oldValue: file1[key], newValue: file2[key] };
   });
@@ -72,5 +83,7 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
 
   return formatter(diff);
 };
+
+
 
 export default genDiff;

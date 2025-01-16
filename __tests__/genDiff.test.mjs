@@ -7,14 +7,17 @@ const getFixturePath = (filename) => path.join(process.cwd(), filename);
 
 describe('genDiff', () => {
   test('should correctly compare file1.json and file2.json', () => {
-    console.log(getFixturePath('file1.json')); 
-    console.log(getFixturePath('file2.json'));
-    
     const file1Path = getFixturePath('file1.json');
     const file2Path = getFixturePath('file2.json');
-
-    console.log('Content of file1.json:', fs.readFileSync(file1Path, 'utf-8'));
-    console.log('Content of file2.json:', fs.readFileSync(file2Path, 'utf-8'));
+  
+    console.log('file1Path type:', typeof file1Path); // должно быть 'string'
+    console.log('file2Path type:', typeof file2Path); // должно быть 'string'
+  
+    const file1Content = fs.readFileSync(file1Path, 'utf-8');
+    const file2Content = fs.readFileSync(file2Path, 'utf-8');
+    console.log('Content of file1.json:', file1Content);
+    console.log('Content of file2.json:', file2Content);
+    
 
     const expectedResult = `{
   - common: {
