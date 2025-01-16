@@ -18,13 +18,13 @@ const parseFile = (filePath) => {
   if (typeof filePath !== 'string') {
     throw new TypeError(`Expected a string for filePath, received ${typeof filePath}`);
   }
-  const fullPath = path.resolve(process.cwd(), filePath); // Absolute path
-  if (!fs.existsSync(fullPath)) {
-    throw new Error(`File not found: ${fullPath}`);
+  const absolutePath = path.resolve(process.cwd(), filePath);
+  if (!fs.existsSync(absolutePath)) {
+    throw new Error(`File not found: ${absolutePath}`);
   }
 
-  const fileData = fs.readFileSync(fullPath, 'utf8'); // Read file content
-  const extname = path.extname(fullPath); // Get file extension
+  const fileData = fs.readFileSync(absolutePath, 'utf8');
+  const extname = path.extname(absolutePath);
 
   switch (extname) {
     case '.json':
@@ -39,19 +39,15 @@ const parseFile = (filePath) => {
 
 // Generate differences between two objects
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
-  if (typeof filepath1 !== 'string' || typeof filepath2 !== 'string') {
-    throw new TypeError(`Expected strings for file paths, received ${typeof filepath1} and ${typeof filepath2}`);
-  }
   const file1 = parseFile(filepath1);
   const file2 = parseFile(filepath2);
-
 
   // Check if files are identical
   if (_.isEqual(file1, file2)) {
     return 'The files are identical.';
   }
 
-  const allKeys = _.union(Object.keys(file1), Object.keys(file2)).sort(); // Unique and sorted keys
+  const allKeys = _.union(Object.keys(file1), Object.keys(file2)).sort();
 
   const diff = allKeys.map((key) => {
     if (!_.has(file2, key)) {
@@ -64,12 +60,11 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
       return { key, type: 'unchanged', value: file1[key] };
     }
     if (_.isObject(file1[key]) && _.isObject(file2[key])) {
-      return { key, type: 'nested', children: genDiff(file1[key], file2[key], format) };
+      return { key, type: 'nested', children: genDiff(file1[key], file2[key], 'stylish') };
     }
     return { key, type: 'updated', oldValue: file1[key], newValue: file2[key] };
   });
 
-  // Select formatter
   const formatter = formats[format];
   if (!formatter) {
     throw new Error(`Unknown format: ${format}`);
