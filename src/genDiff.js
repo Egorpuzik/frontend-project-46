@@ -38,6 +38,27 @@ const parseFile = (filePath) => {
 };
 
 // Generate differences between two objects
+const buildDiff = (data1, data2) => {
+  const allKeys = _.union(Object.keys(data1), Object.keys(data2)).sort();
+
+  return allKeys.map((key) => {
+    if (!_.has(data2, key)) {
+      return { key, type: 'removed', value: data1[key] };
+    }
+    if (!_.has(data1, key)) {
+      return { key, type: 'added', value: data2[key] };
+    }
+    if (_.isEqual(data1[key], data2[key])) {
+      return { key, type: 'unchanged', value: data1[key] };
+    }
+    if (_.isObject(data1[key]) && _.isObject(data2[key])) {
+      return { key, type: 'nested', children: buildDiff(data1[key], data2[key]) };
+    }
+    return { key, type: 'updated', oldValue: data1[key], newValue: data2[key] };
+  });
+};
+
+// Main function to generate difference between two files
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const file1 = parseFile(filepath1);
   const file2 = parseFile(filepath2);
@@ -47,43 +68,23 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
     return 'The files are identical.';
   }
 
-  const allKeys = _.union(Object.keys(file1), Object.keys(file2)).sort();
+  const diff = buildDiff(file1, file2);
 
-  const diff = allKeys.map((key) => {
-    if (!_.has(file2, key)) {
-      return { key, type: 'removed', value: file1[key] };
-    }
-    if (!_.has(file1, key)) {
-      return { key, type: 'added', value: file2[key] };
-    }
-    if (_.isEqual(file1[key], file2[key])) {
-      return { key, type: 'unchanged', value: file1[key] };
-    }
-    if (_.isObject(file1[key]) && _.isObject(file2[key])) {
-      return {
-        key,
-        type: 'nested',
-        children: genDiff(
-          file1[key],
-          file2[key],
-          format,
-        ),
-      };
-    }
-    if (typeof filePath !== 'string') {
-      throw new TypeError(`Expected a string for filePath, received ${typeof filePath}`);
-    }
-    return { key, type: 'updated', oldValue: file1[key], newValue: file2[key] };
-  });
+  console.log('Generated diff:', JSON.stringify(diff, null, 2));
 
   const formatter = formats[format];
   if (!formatter) {
     throw new Error(`Unknown format: ${format}`);
   }
 
+  // Ensure the diff is correctly formatted as an array
+  if (!Array.isArray(diff)) {
+    throw new TypeError('Expected diff to be an array');
+  }
+
   return formatter(diff);
 };
 
-
-
 export default genDiff;
+
+
