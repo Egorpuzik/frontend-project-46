@@ -1,3 +1,13 @@
-const jsonFormatter = (diffTree) => JSON.stringify(diffTree, null, 2);
+import jsonFormatter from './json.js';
 
-export default jsonFormatter;
+const formatters = {
+  json: jsonFormatter,
+  };
+
+export default (diff, format) => {
+  const formatFunction = formatters[format];
+  if (!formatFunction) {
+    throw new Error(`Unknown format: ${format}`);
+  }
+  return formatFunction(diff);
+};

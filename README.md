@@ -24,3 +24,8 @@ npm install -g gendiff
 ## Demo
 
 [![asciicast](https://asciinema.org/a/7lTYbRS0QJI2To6f8dGv88uEa)]
+
+### Формат JSON
+
+```bash
+gendiff --format json filepath1.json filepath2.json
