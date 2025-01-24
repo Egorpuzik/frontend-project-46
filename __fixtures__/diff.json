@@ -1,0 +1,19 @@
+[
+    {
+      "key": "host",
+      "type": "unchanged",
+      "value": "hexlet.io"
+    },
+    {
+      "key": "timeout",
+      "type": "updated",
+      "value1": 50,
+      "value2": 20
+    },
+    {
+      "key": "proxy",
+      "type": "removed",
+      "value": "123.123.123.123"
+    }
+  ]
+  

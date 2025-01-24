@@ -1,0 +1,7 @@
+Property 'common.follow' was added with value: false
+Property 'common.setting2' was updated. From 'Value 2' to 'Value 3'
+Property 'common.setting3.nested' was updated. From true to false
+Property 'group1.foo' was updated. From 'Bar' to 'Baz'
+Property 'group2' was added with value: [complex value]
+Property 'timeout' was updated. From undefined to undefined
+Property 'proxy' was removed

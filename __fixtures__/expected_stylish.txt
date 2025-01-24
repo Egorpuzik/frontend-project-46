@@ -1,0 +1,21 @@
+{
+  common: {
+    follow: false,
+    setting1: 'Value 1',
+    setting2: 'Value 3',
+    setting3: null,
+    setting4: 'blah blah',
+    setting5: [object Object],
+    setting6: {
+      doge: {
+        wow: 'so much',
+      },
+    },
+  },
+  group1: {
+    foo: 'Baz',
+    baz: 'bars',
+    nest: 'str',
+  },
+  group3: [object Object],
+}

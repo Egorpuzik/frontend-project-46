@@ -1,0 +1,44 @@
+{
+  "common": {
+    "follow": {
+      "type": "added",
+      "value": false
+    },
+    "setting1": {
+      "type": "unchanged",
+      "value": "Value 1"
+    },
+    "setting2": {
+      "type": "updated",
+      "value1": "Value 2",
+      "value2": "Value 3"
+    },
+    "setting3": {
+      "type": "nested",
+      "children": {
+        "key": {
+          "type": "unchanged",
+          "value": "value"
+        },
+        "nested": {
+          "type": "updated",
+          "value1": true,
+          "value2": false
+        }
+      }
+    }
+  },
+  "group1": {
+    "type": "removed",
+    "value": {
+      "baz": "Value",
+      "foo": "Bar"
+    }
+  },
+  "group2": {
+    "type": "added",
+    "value": {
+      "abc": 12345
+    }
+  }
+}
