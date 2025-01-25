@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/Egorpuzik/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Egorpuzik/frontend-project-46/actions)",
+  "description": "CLI utility for generating a diff between two configuration files. [![Actions Status](https://github.com/Egorpuzik/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Egorpuzik/frontend-project-46/actions)",
   "main": "src/genDiff.js",
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -20,9 +20,6 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "babel-jest": "^29.7.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
