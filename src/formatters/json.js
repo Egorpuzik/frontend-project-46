@@ -2,7 +2,7 @@ import jsonFormatter from './json.js';
 
 const formatters = {
   json: jsonFormatter,
-  };
+};
 
 export default (diff, format) => {
   const formatFunction = formatters[format];

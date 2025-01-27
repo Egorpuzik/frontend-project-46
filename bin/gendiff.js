@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import genDiff from '../src/genDiff.js';
 import path from 'path';
 import process from 'process';
+import genDiff from '../src/genDiff.js';
 
 const program = new Command();
 
@@ -17,13 +17,13 @@ program
   .option('-f, --format <type>', 'Output format', 'stylish') // По умолчанию "stylish"
   .action((filepath1, filepath2, options) => {
     try {
-            if (!supportedFormats.includes(options.format)) {
+      if (!supportedFormats.includes(options.format)) {
         throw new Error(
-          `Unsupported format: ${options.format}. Supported formats: ${supportedFormats.join(', ')}`
+          `Unsupported format: ${options.format}. Supported formats: ${supportedFormats.join(', ')}`,
         );
       }
 
-            const filePath1 = path.resolve(filepath1);
+      const filePath1 = path.resolve(filepath1);
       const filePath2 = path.resolve(filepath2);
 
       const result = genDiff(filePath1, filePath2, options.format);

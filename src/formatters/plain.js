@@ -31,16 +31,15 @@ const iter = (nodes, parent) => {
         case 'updated':
           return `Property '${property}' was updated. From ${formatValue(node.oldValue)} to ${formatValue(node.newValue)}`;
         case 'unchanged':
-          return null; 
+          return null;
         default:
           throw new Error(`Unknown type: ${node.type}`);
       }
     })
-    .filter(Boolean) 
-    .join('\n'); 
+    .filter(Boolean)
+    .join('\n');
 };
 
 const formatPlain = (diff) => iter(diff, '');
 
 export default formatPlain;
-

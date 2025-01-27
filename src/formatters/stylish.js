@@ -1,5 +1,5 @@
 const formatStylish = (diff) => {
-  const map = (children) => children.map((child) => { 
+  const map = (children) => children.map((child) => {
     if (!typeActions[child.type]) {
       throw new Error(`Unknown diff type: ${child.type}`);
     }
@@ -11,7 +11,7 @@ const formatStylish = (diff) => {
     removed: (item) => `  - ${item.key}: ${item.value}`,
     unchanged: (item) => `    ${item.key}: ${item.value}`,
     updated: (item) => `  ~ ${item.key}: ${item.oldValue} -> ${item.newValue}`,
-    nested: (item) => `    ${item.key}: {\n${map(item.children)}\n    }`, 
+    nested: (item) => `    ${item.key}: {\n${map(item.children)}\n    }`,
   };
 
   const lines = diff.map((item) => {

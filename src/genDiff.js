@@ -54,7 +54,9 @@ const buildDiff = (data1, data2) => {
     if (_.isObject(data1[key]) && _.isObject(data2[key])) {
       return { key, type: 'nested', children: buildDiff(data1[key], data2[key]) };
     }
-    return { key, type: 'updated', oldValue: data1[key], newValue: data2[key] };
+    return {
+      key, type: 'updated', oldValue: data1[key], newValue: data2[key],
+    };
   });
 };
 
@@ -86,5 +88,3 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
 };
 
 export default genDiff;
-
-
