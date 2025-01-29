@@ -2,19 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import parseData from './parser.js';
 import buildDiff from './buildDiff.js';
-import formatStylish from './formatters/stylish.js';
-import formatPlain from './formatters/plain.js';
-import formatJson from './formatters/json.js';
+import format from './formatters/index.js';
+import _ from 'lodash';
 
-// Mapping formats to their corresponding formatters
-const formats = {
-  stylish: formatStylish,
-  plain: formatPlain,
-  json: formatJson,
-};
-
-// Main function to generate difference between two files
-const genDiff = (filepath1, filepath2, format = 'stylish') => {
+const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const absolutePath1 = path.resolve(process.cwd(), filepath1);
   const absolutePath2 = path.resolve(process.cwd(), filepath2);
 
@@ -31,19 +22,12 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const data1 = parseData(fileData1, extname1);
   const data2 = parseData(fileData2, extname2);
 
-  // Check if files are identical
   if (_.isEqual(data1, data2)) {
     return 'The files are identical.';
   }
 
   const diff = buildDiff(data1, data2);
-
-  const formatter = formats[format];
-  if (!formatter) {
-    throw new Error(`Unknown format: ${format}`);
-  }
-
-  return formatter(diff);
+  return format(diff, formatName);
 };
 
 export default genDiff;
