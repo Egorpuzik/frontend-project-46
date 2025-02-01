@@ -1,4 +1,4 @@
-import jsonFormatter from './json.js';
+import jsonFormatter from './jsonFormatter.js';
 
 const formatters = {
   json: jsonFormatter,
