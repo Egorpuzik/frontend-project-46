@@ -1,4 +1,4 @@
-import jsonFormatter from './jsonFormatter.js';
+const jsonFormatter = (diff) => JSON.stringify(diff, null, 2);
 
 const formatters = {
   json: jsonFormatter,
