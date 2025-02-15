@@ -9,10 +9,6 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const absolutePath1 = path.resolve(process.cwd(), filepath1);
   const absolutePath2 = path.resolve(process.cwd(), filepath2);
 
-  if (!fs.existsSync(absolutePath1) || !fs.existsSync(absolutePath2)) {
-    throw new Error(`One or both files not found: ${absolutePath1}, ${absolutePath2}`);
-  }
-
   const fileData1 = fs.readFileSync(absolutePath1, 'utf8');
   const fileData2 = fs.readFileSync(absolutePath2, 'utf8');
 
@@ -21,10 +17,6 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
 
   const data1 = parseData(fileData1, extname1);
   const data2 = parseData(fileData2, extname2);
-
-  if (_.isEqual(data1, data2)) {
-    return 'The files are identical.';
-  }
 
   const diff = buildDiff(data1, data2);
   return format(diff, formatName);
