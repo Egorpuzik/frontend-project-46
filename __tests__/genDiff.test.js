@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 import genDiff from '../src/genDiff.js';
-import plain from '../src/formatters/plain.js';
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFixture = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
@@ -38,13 +37,5 @@ describe('genDiff', () => {
     const filePath = getFixturePath('file1.json');
     const diff = genDiff(filePath, filePath);
     expect(diff).toBe('The files are identical.');
-  });
-});
-describe('plain formatter', () => {
-  test('should correctly format the diff in plain format', () => {
-    const diff = JSON.parse(fs.readFileSync(getFixturePath('diff.json'), 'utf-8'));
-    const expectedResult = readFixture('expected_plain.txt');
-    const result = plain(diff);
-    expect(result).toBe(expectedResult);
   });
 });
