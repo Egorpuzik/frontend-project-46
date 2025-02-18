@@ -13,8 +13,8 @@ program
   .argument('<filepath2>', 'Second file to compare')
   .option('-f, --format <type>', 'Output format', 'stylish')
   .action((filepath1, filepath2, options) => {
-  const result = genDiff(filepath1, filepath2, options.format);
-  console.log(result);
-});
+    const result = genDiff(filepath1, filepath2, options.format);
+    console.log(result);
+  });
 
 program.parse(process.argv);

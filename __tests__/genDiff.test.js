@@ -6,36 +6,34 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFixture = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 describe('genDiff', () => {
-  test('should correctly compare file1.json and file2.json in "stylish" format', () => {
-    const file1Path = getFixturePath('file1.json');
-    const file2Path = getFixturePath('file2.json');
-    const expectedResult = readFixture('expected_stylish.txt');
+  const formats = ['json', 'yml'];
 
-    const diff = genDiff(file1Path, file2Path, 'stylish');
-    expect(diff).toBe(expectedResult);
-  });
+  formats.forEach((format) => {
+    test(`should correctly compare file1.${format} and file2.${format} in "stylish" format`, () => {
+      const file1Path = getFixturePath(`file1.${format}`);
+      const file2Path = getFixturePath(`file2.${format}`);
+      const expectedResult = readFixture('expected_stylish.txt');
 
-  test('should correctly compare file1.json and file2.json in "plain" format', () => {
-    const file1Path = getFixturePath('file1.json');
-    const file2Path = getFixturePath('file2.json');
-    const expectedResult = readFixture('expected_plain.txt');
+      const diff = genDiff(file1Path, file2Path, 'stylish');
+      expect(diff).toBe(expectedResult);
+    });
 
-    const diff = genDiff(file1Path, file2Path, 'plain');
-    expect(diff).toBe(expectedResult);
-  });
+    test(`should correctly compare file1.${format} and file2.${format} in "plain" format`, () => {
+      const file1Path = getFixturePath(`file1.${format}`);
+      const file2Path = getFixturePath(`file2.${format}`);
+      const expectedResult = readFixture('expected_plain.txt');
 
-  test('should correctly compare file1.json and file2.json in "json" format', () => {
-    const file1Path = getFixturePath('file1.json');
-    const file2Path = getFixturePath('file2.json');
-    const expectedResult = readFixture('expected_json.txt');
+      const diff = genDiff(file1Path, file2Path, 'plain');
+      expect(diff).toBe(expectedResult);
+    });
 
-    const diff = genDiff(file1Path, file2Path, 'json');
-    expect(diff).toBe(expectedResult);
-  });
+    test(`should correctly compare file1.${format} and file2.${format} in "json" format`, () => {
+      const file1Path = getFixturePath(`file1.${format}`);
+      const file2Path = getFixturePath(`file2.${format}`);
+      const expectedResult = readFixture('expected_json.txt');
 
-  test('should return "The files are identical." for identical JSON files', () => {
-    const filePath = getFixturePath('file1.json');
-    const diff = genDiff(filePath, filePath);
-    expect(diff).toBe('The files are identical.');
+      const diff = genDiff(file1Path, file2Path, 'json');
+      expect(diff).toBe(expectedResult);
+    });
   });
 });

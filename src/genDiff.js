@@ -3,7 +3,6 @@ import path from 'path';
 import parseData from './parser.js';
 import buildDiff from './buildDiff.js';
 import format from './formatters/index.js';
-import _ from 'lodash';
 
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const absolutePath1 = path.resolve(process.cwd(), filepath1);

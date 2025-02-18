@@ -23,21 +23,19 @@ const typeHandlers = {
     `${makeIndent(depth)}- ${node.key}: ${stringify(node.value1, depth)}`,
     `${makeIndent(depth)}+ ${node.key}: ${stringify(node.value2, depth)}`,
   ].join('\n'),
-  nested: (node, depth, iter) =>
-    `${makeIndent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1)}\n${makeIndent(depth)}  }`,
+  nested: (node, depth, iter) => `${makeIndent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1)}\n${makeIndent(depth)}  }`,
 };
 
 const formatStylish = (diff) => {
-  const iter = (tree, depth) =>
-    tree
-      .map((node) => {
-        const handler = typeHandlers[node.type];
-        if (!handler) {
-          throw new Error(`Unknown diff type: ${node.type}`);
-        }
-        return handler(node, depth, iter);
-      })
-      .join('\n');
+  const iter = (tree, depth) => tree
+    .map((node) => {
+      const handler = typeHandlers[node.type];
+      if (!handler) {
+        throw new Error(`Unknown diff type: ${node.type}`);
+      }
+      return handler(node, depth, iter);
+    })
+    .join('\n');
 
   return `{\n${iter(diff, 1)}\n}`;
 };
