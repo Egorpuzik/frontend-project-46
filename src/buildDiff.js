@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 // Function to generate differences between two objects
 const buildDiff = (data1, data2) => {
-  const allKeys = _.union(Object.keys(data1), Object.keys(data2)).sort();
+  const allKeys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
 
   return allKeys.map((key) => {
     if (!_.has(data2, key)) {
