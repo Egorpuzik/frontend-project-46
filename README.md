@@ -1,5 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Egorpuzik/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Egorpuzik/frontend-project-46/actions)
+[![<a href="https://codeclimate.com/github/Egorpuzik/frontend-project-46/maintainability">][<img src="https://api.codeclimate.com/v1/badges/347ffe18edad31b8e62d/maintainability" /></a>]]
 # Gendiff CLI Tool
 
 Это инструмент командной строки для сравнения двух JSON-файлов и отображения различий между ними.
