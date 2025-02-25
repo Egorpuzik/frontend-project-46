@@ -1,51 +1,48 @@
-name: Lint, Test, and Coverage
+# Name of workflow
+name: Node CI
 
+# Trigger the workflow on push or pull request
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  - push
+  - pull_request
+
+env:
+  CI: true
 
 jobs:
-  lint-test-coverage:
+  build:
+
+    # The type of machine to run the job on
     runs-on: ubuntu-latest
 
+    strategy:
+      # Node versions list
+      matrix:
+        node-version: [20.x]
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+        # Check-out repository under GitHub workspace
+        # https://github.com/actions/checkout
+      - uses: actions/checkout@v4
+        # Step's name
+      - name: Use Node.js ${{ matrix.node-version }}
+        # Configures the node version used on GitHub-hosted runners
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v4
+        # The Node.js version to configure
         with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run linter
-        run: npx eslint .
-
-      - name: Download CodeClimate Test Reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-
-      - name: Prepare for test coverage
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: ./cc-test-reporter before-build
-
-      - name: Run tests with coverage
-        run: npm test -- --coverage
-
-      - name: Upload coverage to CodeClimate
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: ./cc-test-reporter after-build --exit-code $?
-
-      - name: Check test coverage
-        if: success()
-        run: |
-          grep -q '"total":' coverage/coverage-summary.json || exit 1
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: make install
+      - run: make lint
+      - run: make test
+       # - name: Test & publish code coverage
+      #   # Publish code coverage on Code Climate
+      #   # https://github.com/paambaati/codeclimate-action
+      #   uses: paambaati/codeclimate-action@v5.0.0
+      #   # Add Code Climate secret key
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      #   with:
+      #     coverageCommand: make test-coverage
+      #     debug: true
